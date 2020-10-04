@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "food_data",
+  "info": {
+    "name": "food-data"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "img": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    }
+  }
+}

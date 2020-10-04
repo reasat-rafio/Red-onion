@@ -1,0 +1,20 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Roboto&family=Sansita+Swashed&display=swap");
+
+$font-roboto: "Roboto", sans-serif;
+$font-sansita: "Sansita Swashed", cursive;
+
+$primary: #faf0e6;
+$secondary: #f50057;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Poster
+@import "./Components/Body/Poster/poster";
+
+// FoodOutPut
+@import "./Components/Body/FoodOutPut/foodoutput";

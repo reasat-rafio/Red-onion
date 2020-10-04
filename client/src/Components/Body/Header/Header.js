@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     height: "30px",
+    cursor: "pointer",
   },
   inputRoot: {
     color: "inherit",
@@ -151,7 +152,7 @@ function Header() {
     <div className={classes.grow}>
       <AppBar elevation={0} color="primary" position="static">
         <Toolbar>
-          <img src={logo} class={classes.logo} alt="logo" />
+          <img src={logo} className={classes.logo} alt="logo" />
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">

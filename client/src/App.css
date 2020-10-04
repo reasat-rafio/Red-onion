@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&family=Sansita+Swashed&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.poster {
+  height: 550px;
+  background: url(./hot-onion-restaurent-resources/bannerbackground.png) no-repeat;
+}
+
+.poster .inner {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.poster .inner h2 {
+  font-size: 55px;
+  font-family: "Sansita Swashed", cursive;
+  color: rgba(10, 9, 9, 0.926);
+  margin-bottom: 14px;
+}
+
+.poster .inner form {
+  margin-top: 15px;
+}
+
+.poster .inner form input {
+  width: 400px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 1px 1px #f50057;
+          box-shadow: 1px 1px 1px #f50057;
+}
+
+.poster .inner form button {
+  padding: 9px 25px;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+@media (max-width: 700px) {
+  .poster {
+    height: 90vh;
+  }
+  .poster .inner h2 {
+    text-align: center;
+    font-size: 35px;
+  }
+  .poster .inner form {
+    text-align: center;
+  }
+  .poster .inner form input {
+    width: 300px;
+  }
+  .poster .inner form button {
+    width: 100px;
+    margin-top: 10px;
+  }
+}
+
+.navbar {
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.navbar .underline {
+  color: black;
+}
+
+.navbar .underline::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #f50057;
+  -webkit-transition: width 0.3s;
+  transition: width 0.3s;
+}
+
+.navbar .underline:focus {
+  color: #f50057;
+}
+
+.navbar .underline:hover::after {
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  -webkit-transition: width 0.3s;
+  transition: width 0.3s;
+}
+
+.navbar .underline:hover {
+  color: #f50057 !important;
+}
+
+.navbar li {
+  list-style: none;
+  display: inline-block;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.navbar li a {
+  text-decoration: none;
+  padding: 0 20px;
+  font-size: 15px;
+}
+/*# sourceMappingURL=App.css.map */

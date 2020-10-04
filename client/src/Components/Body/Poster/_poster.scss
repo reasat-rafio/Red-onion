@@ -1,0 +1,55 @@
+.poster {
+  height: 550px;
+  background: url(./hot-onion-restaurent-resources/bannerbackground.png)
+    no-repeat;
+  .inner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h2 {
+      font-size: 55px;
+      font-family: $font-sansita;
+      color: rgba(10, 9, 9, 0.926);
+      margin-bottom: 14px;
+    }
+    form {
+      margin-top: 15px;
+      input {
+        width: 400px;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 1px 1px 1px $secondary;
+      }
+      button {
+        padding: 9px 25px;
+        border-radius: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .poster {
+    height: 90vh;
+    .inner {
+      h2 {
+        text-align: center;
+        font-size: 35px;
+      }
+      form {
+        text-align: center;
+        input {
+          width: 300px;
+        }
+        button {
+          width: 100px;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
