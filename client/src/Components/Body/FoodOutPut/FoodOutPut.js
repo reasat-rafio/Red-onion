@@ -1,8 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFoodData } from "../../redux/Actions/fetchAction";
 import Loading from "../../Loading/Loading";
 import SectionName from "./SectionName";
+import { Data } from "./DefaultData";
+import ItemsGrid from "./ItemsGrid/ItemsGrid";
+import { Grid } from "@material-ui/core";
 
 const FoodOutPut = () => {
   //API request from redux
@@ -11,12 +14,11 @@ const FoodOutPut = () => {
     dispatch(fetchFoodData());
   }, []);
 
-  // getting the data from redux store
+  // // getting the data from redux store
   const storeData = useSelector((state) => state);
 
   // Setting the data to a state
-  //   const [lunch, setLunch] = useState([]);
-  const lunch = useRef([]);
+
   const [foodItems, setFoodItems] = useState([]);
   useEffect(() => {
     setFoodItems(...storeData.foods);
@@ -25,21 +27,37 @@ const FoodOutPut = () => {
   // Setting the state based on what category is selected
   const [category, setCategory] = useState("lunch");
 
-  const [selectedCategoryItems, setSelectedCategoryItems] = useState([]);
+  const [selectedCategoryItems, setSelectedCategoryItems] = useState([...Data]);
 
   const changeCategory = (value) => {
-    setSelectedCategoryItems(
-      foodItems.filter((item) => item.categories[0].category === category)
-    );
-
     setCategory(value);
+    setSelectedCategoryItems(
+      foodItems.filter((item) => item.category === value)
+    );
   };
-  console.log(selectedCategoryItems);
 
   return (
     <div>
       <SectionName category={category} changeCategory={changeCategory} />
-      {!foodItems ? <Loading /> : foodItems.map((items) => {})}
+      <Grid container>
+        <Grid xs={0} md={1} />
+        <Grid
+          justify="center"
+          md={10}
+          className="foodGrid"
+          container
+          item
+          spacing={1}
+          xs={12}
+        >
+          {!selectedCategoryItems ? (
+            <Loading />
+          ) : (
+            selectedCategoryItems.map((items) => <ItemsGrid items={items} />)
+          )}
+        </Grid>
+        <Grid xs={0} md={1} />
+      </Grid>
     </div>
   );
 };

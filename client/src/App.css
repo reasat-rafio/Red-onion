@@ -132,4 +132,37 @@
   padding: 0 20px;
   font-size: 15px;
 }
+
+.foodGrid {
+  padding: 40px;
+}
+
+.foodGrid .item {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.foodGrid .item p {
+  text-align: center;
+  font-size: 24px;
+}
+
+.foodGrid .item h2 {
+  margin-top: 10px;
+  text-align: center;
+  font-size: small;
+}
+
+.foodGrid .item .add_to_cart {
+  font-size: small;
+  color: #f50057;
+}
 /*# sourceMappingURL=App.css.map */
