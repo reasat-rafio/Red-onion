@@ -14,24 +14,35 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { addToTheCart } from "../../../redux/Actions/foodAction";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 350,
     maxWidth: 350,
+    paddingTop: 30,
   },
-  media: {
-    margin: "auto",
-    height: 200,
-    width: 200,
-  },
+  media: { margin: "auto", height: 200, width: 200 },
 });
 
-const ItemsGrid = ({ items }) => {
-  console.log(items);
+const ItemsGrid = ({ id, items }) => {
+  // OnClick function
+  const onClick = () => {
+    window.location.pathname = `category/${items.id}`;
+  };
+
+  // console.log(items);
+
+  // AddToCart
+  const dispatch = useDispatch();
+  const AddToCart = () => {
+    dispatch(addToTheCart(items));
+  };
+
   const classes = useStyles();
   return (
-    <Grid className="item" items lg={4} md={6} xs={12}>
+    <Grid className="item" item lg={4} md={6} xs={12}>
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia
@@ -45,15 +56,12 @@ const ItemsGrid = ({ items }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          {/* <Button size="small" color="secondary">
-            Share
-          </Button> */}
-          <IconButton>
+          <IconButton onClick={AddToCart}>
             <AddCircleIcon color="secondary" />
             <Typography className="add_to_cart"> Add</Typography>
           </IconButton>
-          <Button size="small" color="secondary">
-            Learn More
+          <Button onClick={onClick} size="small" color="secondary">
+            See More
           </Button>
         </CardActions>
       </Card>

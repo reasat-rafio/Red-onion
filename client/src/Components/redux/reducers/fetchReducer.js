@@ -1,7 +1,6 @@
 const initialState = {
   foods: [],
   loading: false,
-  selectedFood: [],
   error: "",
 };
 

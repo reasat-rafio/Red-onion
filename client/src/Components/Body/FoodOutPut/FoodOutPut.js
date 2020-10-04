@@ -14,8 +14,8 @@ const FoodOutPut = () => {
     dispatch(fetchFoodData());
   }, []);
 
-  // // getting the data from redux store
-  const storeData = useSelector((state) => state);
+  // getting the data from redux store
+  const storeData = useSelector((state) => state.fetch);
 
   // Setting the data to a state
 
@@ -40,7 +40,7 @@ const FoodOutPut = () => {
     <div>
       <SectionName category={category} changeCategory={changeCategory} />
       <Grid container>
-        <Grid xs={0} md={1} />
+        <Grid item xs={false} md={1} />
         <Grid
           justify="center"
           md={10}
@@ -53,10 +53,12 @@ const FoodOutPut = () => {
           {!selectedCategoryItems ? (
             <Loading />
           ) : (
-            selectedCategoryItems.map((items) => <ItemsGrid items={items} />)
+            selectedCategoryItems.map((items) => (
+              <ItemsGrid key={items.id} id={items.id} items={items} />
+            ))
           )}
         </Grid>
-        <Grid xs={0} md={1} />
+        <Grid item xs={false} md={1} />
       </Grid>
     </div>
   );

@@ -5,17 +5,23 @@ import Body from "./Components/Body/Body";
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./Components/CustomeMuiTheme/MUItheme";
 import { Provider } from "react-redux";
-import store from "./Components/redux/store";
+
+import ShowOneFood from "./Components/ShowOneFood/ShowOneFood";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persist } from "./Components/redux/store";
 
 function App() {
   return (
     <>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Switch>
-            <Route exact path="/" component={Body} />
-          </Switch>
-        </ThemeProvider>
+        <PersistGate loading={null} persistor={persist}>
+          <ThemeProvider theme={theme}>
+            <Switch>
+              <Route exact path="/" component={Body} />
+              <Route path="/category/:id" component={ShowOneFood} />
+            </Switch>
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </>
   );
