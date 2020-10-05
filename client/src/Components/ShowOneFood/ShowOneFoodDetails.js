@@ -4,7 +4,13 @@ import { Button, Grid } from "@material-ui/core";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addToTheCart, DecsOrRemove } from "../redux/Actions/foodAction";
+import {
+  addToTheCart,
+  DecsOrRemove,
+  minusQuantity,
+  removeFromCart,
+} from "../redux/Actions/foodAction";
+import { setSnackbar } from "../redux/Actions/snackbarAction";
 
 const ShowOneFoodDetails = ({ findOneFood }) => {
   // Getting the data from store
@@ -46,11 +52,26 @@ const ShowOneFoodDetails = ({ findOneFood }) => {
   const handlePLusBtn = () => {
     dispatch(addToTheCart(findOneFood));
   };
-
+  const [remove, setRemove] = useState(0);
   // Decreasing selected food quantity
   const handleMinusBtn = () => {
-    if (quantity < 0) return;
-    dispatch(DecsOrRemove(findOneFood, quantity));
+    let findArray = state.selectedFoods.filter(
+      (state) => state.id === findOneFood.id
+    );
+    if (quantity === 1) {
+      setRemove(1);
+    } else {
+      setRemove(0);
+    }
+
+    // Decreasing the count from the cart
+    quantity >= 1 && dispatch(minusQuantity(findArray[0]));
+
+    // Removing the item from cart
+    if (remove === 1) {
+      dispatch(removeFromCart(findArray[0]));
+      dispatch(setSnackbar(true, "warning", "Item is removed from cart"));
+    }
   };
 
   // Adding to the redux store cart

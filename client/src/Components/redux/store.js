@@ -6,16 +6,19 @@ import foodReducer from "./reducers/foodReducer";
 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { snackbarReducer } from "./reducers/snackbarReducer";
 
 const rootReducer = combineReducers({
   fetch: fetchReducer,
   selectedFootStore: foodReducer,
+  snackbar: snackbarReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
   whiteList: ["selectedFootStore"],
+  blacklist: ["snackbar"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
