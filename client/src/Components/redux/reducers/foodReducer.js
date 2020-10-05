@@ -1,7 +1,7 @@
 export const initialState = {
   findOneFood: {},
   selectedFoods: [],
-  total: 0,
+  total: 0.0,
   loading: true,
   error: "",
   inCart: 0,
@@ -34,20 +34,51 @@ export const foodReducer = (state = initialState, action) => {
         ...state,
         selectedFoods: [...state.selectedFoods, action.payload],
         inCart: inCartItems + 1,
+        total: state.total + parseFloat(action.payload.price),
       };
     case "PLUS_QUANTITY":
-      const find = state.selectedFoods.filter(
+      const findPlus = state.selectedFoods.filter(
         (f) => f.id === action.payload.id
       );
 
-      find[0].count++;
-      console.log(find[0].count);
+      findPlus[0].count++;
       let inCartItem = state.inCart;
 
       return {
         ...state,
         inCart: inCartItem + 1,
-        selectedFoods: [...state.selectedFoods, find],
+        total: state.total + parseFloat(action.payload.price),
+      };
+    case "MINUS_QUANTITY":
+      const findMinus = state.selectedFoods.filter(
+        (f) => f.id === action.payload.id
+      );
+      findMinus[0].count--;
+      let inCartMinus = state.inCart;
+
+      return {
+        ...state,
+        inCart: inCartMinus - 1,
+        total: state.total - parseFloat(action.payload.price),
+      };
+    case "ITEM_QUANTITY_LESS_THAN_ONE":
+      const findRemove = state.selectedFoods.filter(
+        (f) => f.id === action.payload.id
+      );
+
+      // console.log(findRemove[0].count);
+      return {
+        ...state,
+        selectedFoods: [
+          ...state.selectedFoods.filter((f) => f.id !== action.payload.id),
+        ],
+      };
+    case "REMOVE_SELECTED_FOODS":
+      return {
+        ...state,
+        selectedFoods: [],
+        inCart: 0,
+        total: 0,
       };
     default:
       return state;

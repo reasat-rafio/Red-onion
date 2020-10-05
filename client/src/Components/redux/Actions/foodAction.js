@@ -49,11 +49,40 @@ const plusQuantity = (value) => {
   };
 };
 
-export const minusQuantity = () => {
+// Removing when the quantity is less than 1
+const removeFromCart = (value) => {
   return {
-    type: "MINUS_QUANTITY",
+    type: "ITEM_QUANTITY_LESS_THAN_ONE",
+    payload: value,
   };
 };
+
+const minusQuantity = (value) => {
+  return {
+    type: "MINUS_QUANTITY",
+    payload: value,
+  };
+};
+// Decreasing quantity or Removing item
+export const DecsOrRemove = (value, quantity) => {
+  return (dispatch, getState) => {
+    const initialState = getState().selectedFootStore;
+
+    let findArray = initialState.selectedFoods.filter(
+      (state) => state.id === value.id
+    );
+    // console.log(findArray[0].count);
+    if (quantity >= 1) {
+      dispatch(minusQuantity(findArray[0]));
+    } else {
+      dispatch(removeFromCart(findArray[0]));
+    }
+    // if (quantity === 0) {
+
+    // }
+  };
+};
+
 //Adding item to the cart
 export const addToTheCart = (value) => {
   return (dispatch, getState) => {
@@ -64,7 +93,7 @@ export const addToTheCart = (value) => {
     let CountOrAdd = initialState.selectedFoods.some(
       (state) => state.id == newValue.id
     );
-    // console.log(CountOrAdd);
+
     if (!CountOrAdd) {
       dispatch(addItem(newValue));
     } else {

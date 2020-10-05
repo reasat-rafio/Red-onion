@@ -32,8 +32,6 @@ const ItemsGrid = ({ id, items }) => {
     window.location.pathname = `category/${items.id}`;
   };
 
-  // console.log(items);
-
   // AddToCart
   const dispatch = useDispatch();
   const AddToCart = () => {

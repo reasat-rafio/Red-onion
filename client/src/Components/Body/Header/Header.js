@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,6 +14,7 @@ import CreateIcon from "@material-ui/icons/Create";
 
 import logo from "../../../hot-onion-restaurent-resources/logo2.png";
 import { ListItemIcon } from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -64,6 +65,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header() {
+  // Number of food added to cart
+  const [cart, setCart] = useState(0);
+
+  const state = useSelector((state) => state.selectedFootStore);
+  useEffect(() => {
+    setCart(state.inCart);
+  }, [state]);
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -127,7 +136,7 @@ function Header() {
     >
       <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
+          <Badge badgeContent={cart} color="secondary">
             <ShoppingCartOutlinedIcon />
           </Badge>
         </IconButton>
@@ -156,7 +165,7 @@ function Header() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={cart} color="secondary">
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>

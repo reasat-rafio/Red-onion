@@ -19,8 +19,6 @@ const ShowOneFood = () => {
   // Getting the Data from store store
   const selectedItem = useSelector((store) => store.selectedFootStore);
   const { findOneFood, loading } = selectedItem;
-  console.log(findOneFood);
-  console.log(loading);
 
   return (
     <div className="ShowOneFood">
