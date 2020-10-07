@@ -135,9 +135,13 @@
 
 .foodGrid {
   padding: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .foodGrid .checkout_btn {
+  display: block;
   margin-top: 20px;
   width: 300px;
 }
@@ -419,5 +423,111 @@
   .review .inner .ReviewForm .cart {
     text-align: center;
   }
+}
+
+.WhyYouChooseUs {
+  margin-top: 15px;
+}
+
+.WhyYouChooseUs h3 {
+  font-size: 45px;
+  margin-bottom: 15px;
+  font-family: "Sansita Swashed", cursive;
+  text-align: center;
+}
+
+.WhyYouChooseUs p {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  line-height: 25px;
+}
+
+.knowMoreCart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 15px 0 15px 0 !important;
+}
+
+.footer {
+  background-color: #070606;
+  margin-top: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+.footer .footer-inner {
+  width: 75%;
+  margin: auto;
+}
+
+.footer .footer-inner .footer-top {
+  padding: 50px 0 30px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.footer .footer-inner .footer-top ul li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.footer .footer-inner .footer-top ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.footer .footer-inner .footer-top ul li a:hover {
+  color: #f50057;
+}
+
+.footer .footer-inner .footer-top .footer-top-img {
+  -webkit-box-flex: 4;
+      -ms-flex: 4;
+          flex: 4;
+}
+
+.footer .footer-inner .footer-top .footer-top-img img {
+  height: 40px;
+  width: 100px;
+}
+
+.footer .footer-inner .footer-top .ul1 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.footer .footer-inner .footer-top .ul2 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.footer .footer-bottom {
+  width: 90%;
+  margin-bottom: auto;
+  padding: 10px 0 30px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.footer .footer-bottom .footer-bottom-a {
+  margin-left: auto;
+}
+
+.footer .footer-bottom .footer-bottom-a a {
+  color: white;
+}
+
+.footer .footer-bottom a {
+  margin-left: 20px;
 }
 /*# sourceMappingURL=App.css.map */

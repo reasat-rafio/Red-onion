@@ -44,7 +44,10 @@
 }
 .foodGrid {
   padding: 40px;
+  display: flex;
+
   .checkout_btn {
+    display: block;
     margin-top: 20px;
     width: 300px;
   }

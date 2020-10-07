@@ -1,0 +1,20 @@
+.WhyYouChooseUs {
+  margin-top: 15px;
+  h3 {
+    font-size: 45px;
+    margin-bottom: 15px;
+    font-family: $font-sansita;
+    text-align: center;
+  }
+  p {
+    font-family: $font-roboto;
+    text-align: center;
+    line-height: 25px;
+  }
+}
+.knowMoreCart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 15px 0 !important;
+}
