@@ -14,7 +14,8 @@ import CreateIcon from "@material-ui/icons/Create";
 
 import logo from "../../../hot-onion-restaurent-resources/logo2.png";
 import { ListItemIcon } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSnackbar } from "../../redux/Actions/snackbarAction";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -65,6 +66,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header() {
+  // To Login Page
+  const Login = () => {
+    window.location.pathname = "/login";
+  };
+  // To Signup page
+  const Signup = () => {
+    window.location.pathname = "/signup";
+  };
+
   // Number of food added to cart
   const [cart, setCart] = useState(0);
 
@@ -72,6 +82,16 @@ function Header() {
   useEffect(() => {
     setCart(state.inCart);
   }, [state]);
+
+  // Go To The Cart Section or Show error if there is no item in cart
+  const dispatch = useDispatch();
+  const goToCart = () => {
+    if (!cart == 0) {
+      window.location.pathname = "/review";
+    } else {
+      dispatch(setSnackbar(true, "error", "Your Cart Is Empty"));
+    }
+  };
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -108,13 +128,13 @@ function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem onClick={Login}>
         <ListItemIcon>
           <LockOpenOutlinedIcon fontSize="small" />
         </ListItemIcon>
         Login
       </MenuItem>
-      <MenuItem className={classes.crtAccount} onClick={handleMenuClose}>
+      <MenuItem className={classes.crtAccount} onClick={Signup}>
         <ListItemIcon>
           <CreateIcon fontSize="small" />
         </ListItemIcon>
@@ -134,7 +154,7 @@ function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={goToCart}>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={cart} color="secondary">
             <ShoppingCartOutlinedIcon />
@@ -164,7 +184,11 @@ function Header() {
           <img src={logo} className={classes.logo} alt="logo" />
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
+            <IconButton
+              onClick={goToCart}
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
               <Badge badgeContent={cart} color="secondary">
                 <ShoppingCartOutlinedIcon />
               </Badge>

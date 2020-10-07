@@ -5,7 +5,9 @@ import Loading from "../../Loading/Loading";
 import SectionName from "./SectionName";
 import { Data } from "./DefaultData";
 import ItemsGrid from "./ItemsGrid/ItemsGrid";
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import { setSnackbar } from "../../redux/Actions/snackbarAction";
 
 const FoodOutPut = () => {
   //API request from redux
@@ -36,6 +38,22 @@ const FoodOutPut = () => {
     );
   };
 
+  // Checkout button action
+  const state = useSelector((state) => state.selectedFootStore);
+  const { inCart } = state;
+  const [Cart, setInCart] = useState(inCart);
+  useEffect(() => {
+    setInCart(inCart);
+  }, [state]);
+  console.log(inCart);
+  const checkOutBtn = () => {
+    if (!Cart == 0) {
+      window.location.pathname = "/review";
+    } else {
+      dispatch(setSnackbar(true, "error", "Your Cart Is Empty"));
+    }
+  };
+
   return (
     <div>
       <SectionName category={category} changeCategory={changeCategory} />
@@ -57,6 +75,14 @@ const FoodOutPut = () => {
               <ItemsGrid key={items.id} id={items.id} items={items} />
             ))
           )}
+          <Button
+            onClick={checkOutBtn}
+            className="checkout_btn"
+            color="secondary"
+            variant="contained"
+          >
+            <ShoppingCartOutlinedIcon /> Checkout Your Food
+          </Button>
         </Grid>
         <Grid item xs={false} md={1} />
       </Grid>

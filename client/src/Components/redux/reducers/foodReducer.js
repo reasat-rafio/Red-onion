@@ -62,13 +62,16 @@ export const foodReducer = (state = initialState, action) => {
         total: state.total - parseFloat(action.payload.price),
       };
     case "ITEM_QUANTITY_LESS_THAN_ONE":
-      const findRemove = state.selectedFoods.filter(
-        (f) => f.id === action.payload.id
-      );
+      // const findRemove = state.selectedFoods.filter(
+      //   (f) => f.id === action.payload.id
+      // );
 
       // console.log(findRemove[0].count);
       return {
         ...state,
+        total:
+          state.total - parseFloat(action.payload.price * action.payload.count),
+        inCart: 0,
         selectedFoods: [
           ...state.selectedFoods.filter((f) => f.id !== action.payload.id),
         ],

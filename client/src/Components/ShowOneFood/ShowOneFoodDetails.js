@@ -53,6 +53,7 @@ const ShowOneFoodDetails = ({ findOneFood }) => {
     dispatch(addToTheCart(findOneFood));
   };
   const [remove, setRemove] = useState(0);
+
   // Decreasing selected food quantity
   const handleMinusBtn = () => {
     let findArray = state.selectedFoods.filter(
@@ -65,12 +66,27 @@ const ShowOneFoodDetails = ({ findOneFood }) => {
     }
 
     // Decreasing the count from the cart
-    quantity >= 1 && dispatch(minusQuantity(findArray[0]));
+    if (quantity >= 1) {
+      dispatch(minusQuantity(findArray[0]));
+      dispatch(
+        setSnackbar(
+          true,
+          "info",
+          `${findArray[0].count} of this item is in cart!`
+        )
+      );
+    }
 
     // Removing the item from cart
     if (remove === 1) {
       dispatch(removeFromCart(findArray[0]));
-      dispatch(setSnackbar(true, "warning", "Item is removed from cart"));
+      dispatch(
+        setSnackbar(
+          true,
+          "warning",
+          `${findArray[0].title}Item is removed from cart`
+        )
+      );
     }
   };
 

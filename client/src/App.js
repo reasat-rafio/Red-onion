@@ -10,6 +10,9 @@ import ShowOneFood from "./Components/ShowOneFood/ShowOneFood";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persist } from "./Components/redux/store";
 import SnackbarPopUp from "./Components/Snackbar/Snackbar";
+import Review from "./Components/Review/Review";
+import Login from "./Components/Login&SignUp/Login";
+import SignUp from "./Components/Login&SignUp/Signup";
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
               <Switch>
                 <Route exact path="/" component={Body} />
                 <Route path="/category/:id" component={ShowOneFood} />
+                <Route path="/review" component={Review} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={SignUp} />
               </Switch>
             </Router>
           </ThemeProvider>

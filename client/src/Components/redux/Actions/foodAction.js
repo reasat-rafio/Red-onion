@@ -35,14 +35,14 @@ export const FindOneFood = (id) => {
   };
 };
 
-const addItem = (value) => {
+export const addItem = (value) => {
   return {
     type: "ADD_ITEM",
     payload: value,
   };
 };
 
-const plusQuantity = (value) => {
+export const plusQuantity = (value) => {
   return {
     type: "PLUS_QUANTITY",
     payload: value,
@@ -63,6 +63,7 @@ export const minusQuantity = (value) => {
     payload: value,
   };
 };
+
 // Decreasing quantity or Removing item
 // export const DecsOrRemove = (value, quantity) => {
 //   return (dispatch, getState) => {
@@ -99,7 +100,6 @@ export const addToTheCart = (value) => {
       dispatch(addItem(newValue));
       dispatch(setSnackbar(true, "success", "Added To Cart"));
     } else {
-      console.log(CountOrAdd);
       dispatch(plusQuantity(value));
       dispatch(
         setSnackbar(

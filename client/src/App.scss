@@ -6,6 +6,7 @@ $font-sansita: "Sansita Swashed", cursive;
 
 $primary: #faf0e6;
 $secondary: #f50057;
+$white: #ece9e9;
 
 * {
   margin: 0;
@@ -21,3 +22,9 @@ $secondary: #f50057;
 
 // FindOneFoodItem
 @import "./Components/ShowOneFood/showonefood";
+
+// Review
+@import "./Components/Review/review";
+
+// login & signUp
+@import "./Components/Login&SignUp/login&singUp";
