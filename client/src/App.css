@@ -530,4 +530,8 @@
 .footer .footer-bottom a {
   margin-left: 20px;
 }
+
+.errorSpan {
+  color: #f50057;
+}
 /*# sourceMappingURL=App.css.map */

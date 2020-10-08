@@ -13,6 +13,8 @@ import SnackbarPopUp from "./Components/Snackbar/Snackbar";
 import Review from "./Components/Review/Review";
 import Login from "./Components/Login&SignUp/Login";
 import SignUp from "./Components/Login&SignUp/Signup";
+import { PrivateRouter } from "./Components/PrivateRouter/PrivteRouter";
+import EndPage from "./Components/EndPage/EndPage";
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
                 <Route path="/review" component={Review} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={SignUp} />
+                <PrivateRouter path="/delivery">
+                  <EndPage />
+                </PrivateRouter>
               </Switch>
             </Router>
           </ThemeProvider>

@@ -64,6 +64,12 @@ export const minusQuantity = (value) => {
   };
 };
 
+export const orderPlaced = () => {
+  return {
+    type: "REMOVE_SELECTED_FOODS",
+  };
+};
+
 // Decreasing quantity or Removing item
 // export const DecsOrRemove = (value, quantity) => {
 //   return (dispatch, getState) => {

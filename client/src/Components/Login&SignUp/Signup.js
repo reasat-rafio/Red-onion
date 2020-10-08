@@ -8,7 +8,10 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import background from "../../hot-onion-restaurent-resources/6 signup.png";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { login_signUp_Success } from "../redux/Actions/userFormAction";
+import { setSnackbar } from "../redux/Actions/snackbarAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,12 +50,54 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { register, handleSubmit, watch, errors } = useForm();
 
-  // On Submit event
-  const onSubmit = (data) => {
-    console.log(data);
+  // Validate the confirm password
+  const validatePassword = (data) => {
+    const pass = document.querySelector("#password").value;
+
+    if (data == pass) return true;
+    return false;
   };
+
+  // On Submit event
+  const onSubmit = async (data) => {
+    const { username, email, password, confirm_password } = data;
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const response = await axios.post(
+        "http://localhost:1337/auth/local/register",
+        {
+          username,
+          email,
+          password,
+        },
+        config
+      );
+      let value = {
+        username,
+        email,
+        token: response.data.jwt,
+      };
+      dispatch(login_signUp_Success(value));
+      window.location.pathname = "/";
+      setTimeout(() => {
+        dispatch(
+          setSnackbar(true, "success", `${username} you are logged in!`)
+        );
+      }, 6000);
+    } catch (err) {
+      dispatch(setSnackbar(true, "error", `this email is already taken`));
+    }
+  };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -76,14 +121,27 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="name"
-              label="Name"
-              name="name"
-              autoComplete="name"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               color="secondary"
               autoFocus
-              inputRef={register}
+              inputRef={register({
+                required: true,
+                minLength: 3,
+              })}
             />
+
+            {errors.username && errors.username.type === "required" && (
+              <span className="errorSpan">username is required </span>
+            )}
+            {errors.username && errors.username.type === "minLength" && (
+              <span className="errorSpan">
+                username must be more than 3 character
+              </span>
+            )}
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -94,10 +152,21 @@ export default function Login() {
               name="email"
               autoComplete="email"
               color="secondary"
-              autoFocus
-              inputRef={register}
+              inputRef={register({
+                required: true,
+                pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              })}
             />
+
+            {errors.email && errors.email.type === "required" && (
+              <span className="errorSpan">Email is required</span>
+            )}
+            {errors.email && errors.email.type === "pattern" && (
+              <span className="errorSpan">Email is incorrect</span>
+            )}
+
             <TextField
+              className="validatePassword"
               variant="outlined"
               margin="normal"
               required
@@ -108,8 +177,21 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               color="secondary"
-              inputRef={register}
+              inputRef={register({
+                required: true,
+                minLength: 5,
+              })}
             />
+
+            {errors.password && errors.password.type === "required" && (
+              <span className="errorSpan">Password is required</span>
+            )}
+            {errors.password && errors.password.type === "minLength" && (
+              <span className="errorSpan">
+                password must be more than 5 characters
+              </span>
+            )}
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -117,12 +199,21 @@ export default function Login() {
               fullWidth
               name="confirm_password"
               label="Confirm Password"
-              type="confirm_password"
+              type="password"
               id="confirm_password"
               autoComplete="confirm_password"
               color="secondary"
-              inputRef={register}
+              inputRef={register({
+                required: true,
+                validate: validatePassword,
+              })}
             />
+
+            {errors.confirm_password &&
+              errors.confirm_password.type === "validate" && (
+                <span className="errorSpan">Password don't match</span>
+              )}
+
             <Button
               type="submit"
               fullWidth
@@ -130,7 +221,7 @@ export default function Login() {
               color="secondary"
               className={classes.submit}
             >
-              LogIn
+              Sign Up
             </Button>
             <Grid container>
               <Grid item>

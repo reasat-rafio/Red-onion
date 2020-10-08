@@ -10,12 +10,14 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import CreateIcon from "@material-ui/icons/Create";
 
 import logo from "../../../hot-onion-restaurent-resources/logo2.png";
 import { ListItemIcon } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { setSnackbar } from "../../redux/Actions/snackbarAction";
+import { logOut } from "../../redux/Actions/userFormAction";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -66,10 +68,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header() {
+  // Getting the user auth from redux
+  const auth = useSelector((state) => state.auth);
+
   // To Login Page
   const Login = () => {
     window.location.pathname = "/login";
   };
+
+  // Logout from the site
+
+  const LogOut = () => {
+    dispatch(logOut());
+    dispatch(setSnackbar(true, "success", "Logout Successfully"));
+  };
+
   // To Signup page
   const Signup = () => {
     window.location.pathname = "/signup";
@@ -128,12 +141,22 @@ function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={Login}>
-        <ListItemIcon>
-          <LockOpenOutlinedIcon fontSize="small" />
-        </ListItemIcon>
-        Login
-      </MenuItem>
+      {auth.isLoggedIn ? (
+        <MenuItem onClick={LogOut}>
+          <ListItemIcon>
+            <ExitToAppIcon fontSize="small" />
+          </ListItemIcon>
+          Log out
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={Login}>
+          <ListItemIcon>
+            <LockOpenOutlinedIcon fontSize="small" />
+          </ListItemIcon>
+          Login
+        </MenuItem>
+      )}
+
       <MenuItem className={classes.crtAccount} onClick={Signup}>
         <ListItemIcon>
           <CreateIcon fontSize="small" />

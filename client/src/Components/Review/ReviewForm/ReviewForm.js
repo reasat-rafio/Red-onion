@@ -10,8 +10,9 @@ import Container from "@material-ui/core/Container";
 import { motion } from "framer-motion";
 
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SelectedFood from "./SelectedFood.js/SelectedFood";
+import { orderPlaced } from "../../redux/Actions/foodAction";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -34,6 +35,8 @@ const onSubmit = (data) => {
 const ReviewForm = () => {
   const { register, handleSubmit, watch, errors } = useForm();
 
+  const dispatch = useDispatch();
+
   const state = useSelector((state) => state.selectedFootStore);
   const { selectedFoods, inCart, loading, total } = state;
 
@@ -42,6 +45,12 @@ const ReviewForm = () => {
   // cartIsEmpty
   const cartIsEmpty = () => {
     window.location.pathname = "/";
+  };
+
+  // handleOrderPlaced
+  const handleOrderPlaced = () => {
+    dispatch(orderPlaced());
+    window.location.pathname = "/delivery";
   };
 
   // motion from animation
@@ -206,6 +215,7 @@ const ReviewForm = () => {
               </Button>
             ) : (
               <Button
+                onClick={handleOrderPlaced}
                 className="place_order_btn"
                 variant="contained"
                 color="secondary"

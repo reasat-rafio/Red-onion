@@ -6,11 +6,13 @@ import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
-import background from "../../hot-onion-restaurent-resources/6 signup.png";
+import { useDispatch, useSelector } from "react-redux";
+
+import axios from "axios";
+import { login_signUp_Success } from "../redux/Actions/userFormAction";
+import { setSnackbar } from "../redux/Actions/snackbarAction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,12 +50,50 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const state = useSelector((state) => state.auth);
   const classes = useStyles();
   const { register, handleSubmit, watch, errors } = useForm();
 
+  const dispatch = useDispatch();
+
   // On Submit event
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    const token = state.token;
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const response = await axios.post(
+        "http://localhost:1337/auth/local",
+        {
+          identifier: email,
+          password,
+        },
+        config
+      );
+      console.log(response.data.user.username);
+      let value = {
+        username: response.data.user.username,
+        email,
+        token: response.data.jwt,
+      };
+      dispatch(login_signUp_Success(value));
+      dispatch(
+        setSnackbar(
+          true,
+          "success",
+          `${response.data.user.username} Welcome back!`
+        )
+      );
+      window.location.pathname = "/";
+    } catch (err) {
+      dispatch(setSnackbar(true, "error", `email or password is invalid`));
+    }
   };
   return (
     <Grid container component="main" className={classes.root}>
@@ -84,8 +124,17 @@ export default function Login() {
               autoComplete="email"
               color="secondary"
               autoFocus
-              inputRef={register}
+              inputRef={register({
+                required: true,
+                pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              })}
             />
+            {errors.email && errors.email.type === "required" && (
+              <span className="errorSpan">Email is required</span>
+            )}
+            {errors.email && errors.email.type === "pattern" && (
+              <span className="errorSpan">Email is incorrect</span>
+            )}
             <TextField
               variant="outlined"
               margin="normal"
@@ -97,8 +146,21 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               color="secondary"
-              inputRef={register}
+              inputRef={register({
+                required: true,
+                minLength: 5,
+              })}
             />
+
+            {errors.password && errors.password.type === "required" && (
+              <span className="errorSpan">Password is required</span>
+            )}
+            {errors.password && errors.password.type === "minLength" && (
+              <span className="errorSpan">
+                password must be more than 5 characters
+              </span>
+            )}
+
             <Button
               type="submit"
               fullWidth
@@ -115,12 +177,7 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link
-                  // onClick={() => (window.location.pathname = "")}
-                  color="secondary"
-                  href="/signup"
-                  variant="body2"
-                >
+                <Link color="secondary" href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
