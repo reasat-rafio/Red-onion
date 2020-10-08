@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../Footer/Footer";
 import { setSnackbar } from "../redux/Actions/snackbarAction";
@@ -10,7 +10,10 @@ import Poster from "./Poster/Poster";
 const Body = () => {
   const state = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [time, setTimer] = useState(false);
+
   setTimeout(() => {
+    setTimer(true);
     if (!state.isLoggedIn) {
       dispatch(
         setSnackbar(
@@ -20,11 +23,10 @@ const Body = () => {
         )
       );
     } else {
-      dispatch(
-        setSnackbar(true, "success", `Welcome back ${state.userName} 😀`)
-      );
+      return;
     }
   }, 4000);
+
   return (
     <>
       <Header />

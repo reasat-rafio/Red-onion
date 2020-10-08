@@ -69,7 +69,7 @@ export default function Login() {
       };
 
       const response = await axios.post(
-        "http://localhost:1337/auth/local",
+        "https://red-onion71.herokuapp.com/auth/local",
         {
           identifier: email,
           password,
@@ -87,7 +87,7 @@ export default function Login() {
         setSnackbar(
           true,
           "success",
-          `${response.data.user.username} Welcome back!`
+          `${response.data.user.username} Welcome back! 😀`
         )
       );
       window.location.pathname = "/";

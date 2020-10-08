@@ -45,7 +45,7 @@ const FoodOutPut = () => {
   useEffect(() => {
     setInCart(inCart);
   }, [state]);
-  console.log(inCart);
+
   const checkOutBtn = () => {
     if (!Cart == 0) {
       window.location.pathname = "/review";

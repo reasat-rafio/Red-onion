@@ -24,7 +24,9 @@ export const fetchFoodData = () => {
   return async (dispatch) => {
     dispatch(requestData());
     try {
-      const res = await axios.get("http://localhost:1337/food-data");
+      const res = await axios.get(
+        "https://red-onion71.herokuapp.com/food-data"
+      );
       let foods = res.data;
       dispatch(fetchSuccess(foods));
     } catch (err) {

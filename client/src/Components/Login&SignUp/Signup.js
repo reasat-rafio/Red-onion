@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login_signUp_Success } from "../redux/Actions/userFormAction";
 import { setSnackbar } from "../redux/Actions/snackbarAction";
 
@@ -73,7 +73,7 @@ export default function Login() {
       };
 
       const response = await axios.post(
-        "http://localhost:1337/auth/local/register",
+        "https://red-onion71.herokuapp.com/auth/local/register",
         {
           username,
           email,
